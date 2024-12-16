@@ -15,7 +15,7 @@ namespace MKWiseM
 
         private void tabInformation_Enter(object sender, EventArgs e)
         {
-            if (IsInitialized())
+            if (IsDbInitialized())
             {
                 SetupCompLevel();
                 SetupLabels();

@@ -74,7 +74,7 @@ namespace MKWiseM
                                 END
 
                             BEGIN
-                                RAISERROR(N'[ %s ]  ::: 작업 시작 ', 0, 1, @CurrentTableName) WITH NOWAIT
+                                RAISERROR(N'[ %s ] ::: 작업 시작 ', 0, 1, @CurrentTableName) WITH NOWAIT
                                 SET @SQL = N'DBCC SHOWCONTIG(' + @CurrentTableName + ') with FAST, TABLERESULTS, NO_INFOMSGS';
 
                                 INSERT INTO @SCAN_RESULTS EXEC sp_executesql @sql; -- SHOWCONTIG -> 임시테이블

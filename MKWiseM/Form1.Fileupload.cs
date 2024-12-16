@@ -1,10 +1,7 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Data;
-using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
-using static System.Windows.Forms.AxHost;
 
 
 namespace MKWiseM
@@ -15,7 +12,7 @@ namespace MKWiseM
 
         private void tabUpload_Enter(object sender, EventArgs e)
         {
-            if (IsInitialized())
+            if (IsDbInitialized())
             {
                 LoadProgramTables();
                 EnableComps();
@@ -66,7 +63,7 @@ namespace MKWiseM
                 FROM {sTable}
                 WHERE bunch = '{sBunch}'
                 ORDER BY updated desc, version DESC
-            ";
+                ";
 
                 var dt = await DBUtil.GetDataTableAsync(loadQuery);
                 dGridCurrentProgram.DataSource = dt;
@@ -202,7 +199,7 @@ namespace MKWiseM
             }
             else
             {
-                MessageBox.Show("NOT SELECTED TABLE");
+                MessageBox.Show("TABLE NOT SELECTED");
             }
         }
 

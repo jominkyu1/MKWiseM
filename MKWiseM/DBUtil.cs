@@ -42,7 +42,7 @@ namespace MKWiseM
             }
         }
 
-        private static DataTable ExecuteProcedure(string tables, bool handlePrintEvent = false)
+        private static DataTable ExecuteScanDensity(string tables, bool handlePrintEvent = false)
         {
             using (var sqlConnection = new SqlConnection(AppConfigUtil.ConnectionStrings))
             {
@@ -238,7 +238,7 @@ namespace MKWiseM
             {
                 try
                 {
-                    var dt = ExecuteProcedure(csvTables, true);
+                    var dt = ExecuteScanDensity(csvTables, true);
                     onCompleted?.Invoke(dt);
                 }
                 catch (Exception ex)
@@ -295,12 +295,18 @@ namespace MKWiseM
 
         public static List<string> GetDiskInfo()
         {
-            EnableCLR();
-            var dt = GetDataTable(LongQuery.DiskInfoQuery());
-            DisableCLR();
+            try
+            {
+                EnableCLR();
+                var dt = GetDataTable(LongQuery.DiskInfoQuery());
 
-            return (from DataRow row in dt.Rows 
-                    select row["Output"].ToString()).ToList();
+                return (from DataRow row in dt.Rows
+                        select row["Output"].ToString()).ToList();
+            }
+            finally
+            {
+                DisableCLR();
+            }
         }
 
         private static void EnableCLR()

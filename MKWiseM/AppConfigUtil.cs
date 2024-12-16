@@ -1,15 +1,8 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using String = System.String;
 
 namespace MKWiseM
@@ -44,7 +37,7 @@ namespace MKWiseM
 
         public static void SetupConnection(string ip, string id, string pw, string catalog = "")
         {
-            Console.WriteLine($"{ip} -- {catalog}");
+            Console.WriteLine($"Setup : {ip} Catalog : {catalog}");
             var conField = conSection.ConnectionStrings[CON_NAME];
             var newConStr = CreateConStr(ip, id, pw, catalog);
 

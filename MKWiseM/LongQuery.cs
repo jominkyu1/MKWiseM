@@ -91,7 +91,7 @@ namespace MKWiseM
                 C.table_name                               as [TableName],
                 STRING_AGG(C.COLUMN_NAME, ', ')            as [ColumnName],
                 I.rows                                     as [Rows],
-                U.last_user_update                         as [LastUpdate]
+                U.last_user_update                         as [LastAccess]
             FROM INFORMATION_SCHEMA.COLUMNS C
                 LEFT JOIN sys.sysindexes I ON object_id(C.Table_Name) = I.id AND i.Indid < 2
                 LEFT JOIN sys.dm_db_index_usage_stats U ON object_id(C.Table_Name) = U.object_id AND U.index_id < 2
@@ -100,7 +100,7 @@ namespace MKWiseM
             GROUP BY
                 table_schema, table_name, rows, last_user_update
             ORDER BY
-                LastUpdate DESC
+                LastAccess DESC
             ";
         }
     }

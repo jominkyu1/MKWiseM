@@ -1,24 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Configuration;
-using System.Data;
 using System.Data.SqlClient;
-using System.Data.SqlTypes;
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Runtime.Remoting.Channels;
-using System.Runtime.Remoting.Messaging;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MKWiseM.DTO;
 using MKWiseM.Properties;
-using static System.ComponentModel.Design.ObjectSelectorEditor;
-using Timer = System.Windows.Forms.Timer;
 
 #pragma warning disable IDE1006
 
@@ -70,13 +60,24 @@ namespace MKWiseM
                 lblCatalog.Text = AppConfigUtil.Catalog;
 
             }
-            catch (ConfigurationErrorsException ignored) { }
+            catch (ConfigurationErrorsException) { }
         }
 
         private void LoadRecentIP()
         {
-            cbRecentIP.Items.Clear();
-            cbRecentIP.Items.AddRange(Settings.Default.cbRecentIP.Cast<object>().ToArray());
+            int currIdx = 0;
+            if (cbRecentIP.SelectedIndex > 0)
+            {
+                currIdx = cbRecentIP.SelectedIndex;
+            }
+
+            List<IpGroup> ipGroups = IpGroup.GetIpGroups(Settings.Default.cbRecentIP);
+            cbRecentIP.DataSource = ipGroups;
+            cbRecentIP.DisplayMember = "IP";
+            if (cbRecentIP.Items.Count > currIdx)
+            {
+                cbRecentIP.SelectedIndex = currIdx;
+            }
         }
 
         private void GetConnectionStrings()
@@ -103,24 +104,61 @@ namespace MKWiseM
             lblMessage.Text = $"{DateTime.Now:g} {message}";
         }
 
-        private void UpdateRecentIP(string ip, bool isDelete = false)
+        private void DeleteRecentIP(string inputIP)
         {
             var recentIps = Settings.Default.cbRecentIP;
-            if (!recentIps.Contains(ip) && !isDelete)
-                recentIps.Add(ip);
-            else if (recentIps.Contains(ip) && isDelete)
+            for (var i = 0; i < recentIps.Count; i++)
             {
-                recentIps.Remove(ip);
+                var decryptedIpGroup = EncryptUtil.Decrypt(recentIps[i]);
+                if (decryptedIpGroup.Contains(inputIP))
+                {
+                    recentIps.Remove(recentIps[i]);
+                }
             }
 
             Settings.Default.Save();
             LoadRecentIP();
         }
 
+        private void UpdateRecentIP(string inputIP, string inputID, string inputPW)
+        {
+            var recentIps = Settings.Default.cbRecentIP;
+            string encryptedIPGroup = EncryptUtil.Encrypt($"{inputIP};{inputID};{inputPW}");
+
+            bool isUpdated = false;
+            for (int i = 0; i < recentIps.Count; i++)
+            {
+                var decryptedIpGroup = EncryptUtil.Decrypt(recentIps[i]);
+                if (decryptedIpGroup.Contains(inputIP)) //이미 IP가 존재하면 UPDATE
+                {
+                    recentIps[i] = encryptedIPGroup;
+                    isUpdated = true;
+                    break;
+                }
+            }
+
+            // ELSE ADD
+            if (!isUpdated)
+            {
+                recentIps.Add(encryptedIPGroup);
+            }
+            
+            Settings.Default.Save();
+            LoadRecentIP();
+
+            //TODO 경로 메세지박스
+            string configPath = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath;
+            MessageBox.Show($"Settings 파일 경로: {configPath}");
+        }
+
         private void btnSaveConStr_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtIP.Text) || string.IsNullOrEmpty(txtID.Text) ||
-                string.IsNullOrEmpty(txtPW.Text)) return;
+                string.IsNullOrEmpty(txtPW.Text))
+            {
+                MessageBox.Show("모든 항목을 입력해주세요.", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             AppConfigUtil.SetupConnection(
                 txtIP.Text.Trim(), 
@@ -128,6 +166,8 @@ namespace MKWiseM
                 txtPW.Text.Trim(),
                 AppConfigUtil.Catalog
                 );
+
+            UpdateRecentIP(txtIP.Text.Trim(), txtID.Text.Trim(), txtPW.Text.Trim());
         }
 
         private void txtPW_KeyDown(object sender, KeyEventArgs e)
@@ -138,30 +178,48 @@ namespace MKWiseM
         private void btnConnectDb_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtIP.Text) || string.IsNullOrEmpty(txtID.Text) ||
-                string.IsNullOrEmpty(txtPW.Text)) return;
+                string.IsNullOrEmpty(txtPW.Text))
+            {
+                MessageBox.Show("모든 항목을 입력해주세요.", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            AppConfigUtil.SetupConnection(
+                txtIP.Text.Trim(),
+                txtID.Text.Trim(),
+                txtPW.Text.Trim(),
+                AppConfigUtil.Catalog
+            );
 
             TryOpenConnection();
 
             lblConStatus.Text = AppConfigUtil.IP;
-            UpdateRecentIP(txtIP.Text);
+            UpdateRecentIP(txtIP.Text.Trim(), txtID.Text.Trim(), txtPW.Text.Trim());
         }
 
         private async void TryOpenConnection()
         {
-            UpdateMessage("Try to connect...");
-            var result = await DBUtil.IsValidConnectionAsync();
-            if (result)
+            try
             {
-                lblConStatus.Image = Resources.conon;
-                this.isConnected = true;
-                btnLoadList_Click(this, EventArgs.Empty);
+                UpdateMessage("Try to connect...");
+                var result = await DBUtil.IsValidConnectionAsync();
+                if (result)
+                {
+                    lblConStatus.Image = Resources.conon;
+                    this.isConnected = true;
+                    btnLoadList_Click(this, EventArgs.Empty);
+                }
+                else
+                {
+                    lblConStatus.Image = Resources.conoff;
+                    this.isConnected = false;
+                }
             }
-            else
+            catch (Exception)
             {
                 lblConStatus.Image = Resources.conoff;
                 this.isConnected = false;
             }
-            
         }
 
         private void chkAutoConnect_CheckedChanged(object sender, EventArgs e)
@@ -223,14 +281,17 @@ namespace MKWiseM
 
         private void cbRecentIP_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            txtIP.Text = cbRecentIP.SelectedItem.ToString();
+            var selectedItem = cbRecentIP.SelectedItem as IpGroup;
+
+            txtIP.Text = selectedItem?.IP;
+            txtID.Text = selectedItem?.ID;
+            txtPW.Text = selectedItem?.Password;
         }
 
         private void btnDeleteConStr_Click(object sender, EventArgs e)
         {
-            UpdateRecentIP(txtIP.Text, true);
+            DeleteRecentIP(txtIP.Text);
         }
-
         private void cbDbList_SelectionChangeCommitted(object sender, EventArgs e)
         {
             if (cbDbList.SelectedIndex == -1 || string.IsNullOrEmpty(cbDbList.SelectedValue.ToString())) return;
@@ -253,23 +314,24 @@ namespace MKWiseM
         }
 
 
-        private bool IsInitialized()
+        private bool IsDbInitialized()
         {
             return (isConnected && !string.IsNullOrEmpty(AppConfigUtil.Catalog));
         }
 
         private async void lblMessage_TextChanged(object sender, EventArgs e)
         {
-            _cToken?.Cancel();
-            _cToken = new CancellationTokenSource();
             try
             {
+                _cToken?.Cancel();
+                _cToken = new CancellationTokenSource();
+
                 await Task.Delay(5000, _cToken.Token);
                 this.lblMessage.Text = "";
             }
-            catch (TaskCanceledException) { }
+            catch (TaskCanceledException)
+            {
+            }
         }
-
-
     }
 }

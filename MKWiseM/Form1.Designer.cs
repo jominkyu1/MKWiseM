@@ -120,7 +120,9 @@
             this.lblCatalog = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblMessage = new System.Windows.Forms.ToolStripStatusLabel();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.mainProperty = new System.Windows.Forms.PropertyGrid();
             this.tabControl1.SuspendLayout();
+            this.tabMain.SuspendLayout();
             this.tabReIdx.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGridDiskInfo)).BeginInit();
             this.panel1.SuspendLayout();
@@ -158,6 +160,7 @@
             // tabMain
             // 
             this.tabMain.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.tabMain.Controls.Add(this.mainProperty);
             this.tabMain.Location = new System.Drawing.Point(4, 39);
             this.tabMain.Name = "tabMain";
             this.tabMain.Padding = new System.Windows.Forms.Padding(3);
@@ -783,7 +786,7 @@
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dGridFindColumn.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.dGridFindColumn.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dGridFindColumn.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dGridFindColumn.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SunkenHorizontal;
             this.dGridFindColumn.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             this.dGridFindColumn.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
@@ -857,6 +860,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label19.Location = new System.Drawing.Point(8, 109);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(71, 15);
@@ -913,11 +917,12 @@
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("맑은 고딕", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label4.Location = new System.Drawing.Point(223, 11);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(53, 15);
+            this.label4.Size = new System.Drawing.Size(31, 15);
             this.label4.TabIndex = 9;
-            this.label4.Text = "Error log";
+            this.label4.Text = "LOG";
             // 
             // groupBox1
             // 
@@ -1105,6 +1110,14 @@
             this.lblMessage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lblMessage.TextChanged += new System.EventHandler(this.lblMessage_TextChanged);
             // 
+            // mainProperty
+            // 
+            this.mainProperty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.mainProperty.Location = new System.Drawing.Point(694, 0);
+            this.mainProperty.Name = "mainProperty";
+            this.mainProperty.Size = new System.Drawing.Size(263, 401);
+            this.mainProperty.TabIndex = 0;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1123,6 +1136,7 @@
             this.Text = "MK";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
+            this.tabMain.ResumeLayout(false);
             this.tabReIdx.ResumeLayout(false);
             this.tabReIdx.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGridDiskInfo)).EndInit();
@@ -1238,6 +1252,7 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label lblFinding;
         private System.Windows.Forms.Button btnFileDownload;
+        private System.Windows.Forms.PropertyGrid mainProperty;
     }
 }
 

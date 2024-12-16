@@ -32,13 +32,13 @@ namespace MKWiseM
                 try
                 {
                     BringToFront(pName);
+                    return;
                 }
                 catch (Exception)
                 {
-                    return;
+                    MessageBox.Show("Failed bring process to front.", 
+                        "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
-                return;
             }
             #endregion
 
