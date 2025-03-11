@@ -145,10 +145,6 @@ namespace MKWiseM
             
             Settings.Default.Save();
             LoadRecentIP();
-
-            //TODO 경로 메세지박스
-            string configPath = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath;
-            MessageBox.Show($"Settings 파일 경로: {configPath}");
         }
 
         private void btnSaveConStr_Click(object sender, EventArgs e)
@@ -332,6 +328,13 @@ namespace MKWiseM
             catch (TaskCanceledException)
             {
             }
+        }
+
+        private void btnConfigPath_Click(object sender, EventArgs e)
+        {
+            string configPath = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath;
+            MessageBox.Show($"Copied to clipboard.\n\n{configPath}");
+            Clipboard.SetText(configPath);
         }
     }
 }

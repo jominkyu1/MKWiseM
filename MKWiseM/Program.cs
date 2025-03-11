@@ -37,7 +37,7 @@ namespace MKWiseM
                 catch (Exception)
                 {
                     MessageBox.Show("Failed bring process to front.", 
-                        "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             #endregion

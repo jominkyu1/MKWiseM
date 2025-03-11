@@ -74,22 +74,41 @@ namespace MKWiseM
         {
             try
             {
-                byte[] rawData = null;
-                FileProgressChanged?.Invoke(null, 50);
-                await Task.Run(() =>
-                {
-                    rawData = DBUtil.ExecuteScalar(query) as byte[];
-                });
-                if (rawData == null) return false;
-                    
+                // byte[] rawData = null;
+                // FileProgressChanged?.Invoke(null, 50);
+                // await Task.Run(() =>
+                // {
+                //     rawData = DBUtil.ExecuteScalar(query) as byte[];
+                // });
+                // if (rawData == null) return false;
 
-                using (var fs = new FileStream(
-                           filepath, FileMode.Create, 
-                           FileAccess.Write, FileShare.None, 
-                           4096, true))
+                using (var reader = await DBUtil.GetDataReaderAsync(query))
                 {
-                    await fs.WriteAsync(rawData, 0, rawData.Length);
+                    if (await reader.ReadAsync() == false) 
+                        return false;
+
+                    using (var fs = new FileStream(
+                               filepath, FileMode.Create,
+                               FileAccess.Write, FileShare.None,
+                               4096, true))
+                    using (var stream = reader.GetStream(0))
+                    {
+                        int bytesread = 0;
+                        byte[] buffer = new byte[4096];
+                        while ( ( bytesread = await stream.ReadAsync(buffer, 0, buffer.Length) )> 0)
+                        {
+                            await fs.WriteAsync(buffer, 0, bytesread);
+                        }
+                    }
                 }
+
+                // using (var fs = new FileStream(
+                //            filepath, FileMode.Create,
+                //            FileAccess.Write, FileShare.None,
+                //            4096, true))
+                // {
+                //     await fs.WriteAsync(rawData, 0, rawData.Length);
+                // }
 
                 return true;
             }

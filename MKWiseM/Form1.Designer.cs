@@ -37,6 +37,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabMain = new System.Windows.Forms.TabPage();
+            this.btnConfigPath = new System.Windows.Forms.Button();
+            this.mainProperty = new System.Windows.Forms.PropertyGrid();
             this.tabReIdx = new System.Windows.Forms.TabPage();
             this.dGridDiskInfo = new System.Windows.Forms.DataGridView();
             this.btnGetDrive = new System.Windows.Forms.Button();
@@ -120,7 +122,6 @@
             this.lblCatalog = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblMessage = new System.Windows.Forms.ToolStripStatusLabel();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.mainProperty = new System.Windows.Forms.PropertyGrid();
             this.tabControl1.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.tabReIdx.SuspendLayout();
@@ -160,6 +161,7 @@
             // tabMain
             // 
             this.tabMain.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.tabMain.Controls.Add(this.btnConfigPath);
             this.tabMain.Controls.Add(this.mainProperty);
             this.tabMain.Location = new System.Drawing.Point(4, 39);
             this.tabMain.Name = "tabMain";
@@ -167,6 +169,24 @@
             this.tabMain.Size = new System.Drawing.Size(957, 430);
             this.tabMain.TabIndex = 4;
             this.tabMain.Text = "Main";
+            // 
+            // btnConfigPath
+            // 
+            this.btnConfigPath.Location = new System.Drawing.Point(535, 6);
+            this.btnConfigPath.Name = "btnConfigPath";
+            this.btnConfigPath.Size = new System.Drawing.Size(153, 44);
+            this.btnConfigPath.TabIndex = 1;
+            this.btnConfigPath.Text = "Config Path";
+            this.btnConfigPath.UseVisualStyleBackColor = true;
+            this.btnConfigPath.Click += new System.EventHandler(this.btnConfigPath_Click);
+            // 
+            // mainProperty
+            // 
+            this.mainProperty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.mainProperty.Location = new System.Drawing.Point(694, 0);
+            this.mainProperty.Name = "mainProperty";
+            this.mainProperty.Size = new System.Drawing.Size(263, 401);
+            this.mainProperty.TabIndex = 0;
             // 
             // tabReIdx
             // 
@@ -442,7 +462,7 @@
             this.lblSelectedBunch.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lblSelectedBunch.Location = new System.Drawing.Point(77, 128);
             this.lblSelectedBunch.Name = "lblSelectedBunch";
-            this.lblSelectedBunch.Size = new System.Drawing.Size(205, 17);
+            this.lblSelectedBunch.Size = new System.Drawing.Size(354, 17);
             this.lblSelectedBunch.TabIndex = 8;
             this.lblSelectedBunch.Text = "-";
             this.lblSelectedBunch.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -461,7 +481,7 @@
             this.lblSelectedFileSize.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lblSelectedFileSize.Location = new System.Drawing.Point(77, 33);
             this.lblSelectedFileSize.Name = "lblSelectedFileSize";
-            this.lblSelectedFileSize.Size = new System.Drawing.Size(205, 17);
+            this.lblSelectedFileSize.Size = new System.Drawing.Size(354, 17);
             this.lblSelectedFileSize.TabIndex = 6;
             this.lblSelectedFileSize.Text = "-";
             this.lblSelectedFileSize.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -488,7 +508,7 @@
             // 
             this.txtSelectedVersion.Location = new System.Drawing.Point(80, 92);
             this.txtSelectedVersion.Name = "txtSelectedVersion";
-            this.txtSelectedVersion.Size = new System.Drawing.Size(202, 23);
+            this.txtSelectedVersion.Size = new System.Drawing.Size(351, 23);
             this.txtSelectedVersion.TabIndex = 3;
             // 
             // label9
@@ -505,7 +525,7 @@
             this.lblSelectedFileName.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lblSelectedFileName.Location = new System.Drawing.Point(77, 63);
             this.lblSelectedFileName.Name = "lblSelectedFileName";
-            this.lblSelectedFileName.Size = new System.Drawing.Size(205, 17);
+            this.lblSelectedFileName.Size = new System.Drawing.Size(354, 17);
             this.lblSelectedFileName.TabIndex = 2;
             this.lblSelectedFileName.Text = "-";
             this.lblSelectedFileName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1110,14 +1130,6 @@
             this.lblMessage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lblMessage.TextChanged += new System.EventHandler(this.lblMessage_TextChanged);
             // 
-            // mainProperty
-            // 
-            this.mainProperty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.mainProperty.Location = new System.Drawing.Point(694, 0);
-            this.mainProperty.Name = "mainProperty";
-            this.mainProperty.Size = new System.Drawing.Size(263, 401);
-            this.mainProperty.TabIndex = 0;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1253,6 +1265,7 @@
         private System.Windows.Forms.Label lblFinding;
         private System.Windows.Forms.Button btnFileDownload;
         private System.Windows.Forms.PropertyGrid mainProperty;
+        private System.Windows.Forms.Button btnConfigPath;
     }
 }
 

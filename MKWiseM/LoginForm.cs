@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MKWiseM
@@ -10,9 +12,11 @@ namespace MKWiseM
             InitializeComponent();
         }
 
-        private void LoginForm_Load(object sender, EventArgs e)
+        private async void LoginForm_Load(object sender, EventArgs e)
         {
             this.textBox1.Focus();
+
+            
         }
 
         private void textBox1_KeyDown(object sender, KeyEventArgs e)

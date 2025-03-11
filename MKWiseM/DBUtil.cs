@@ -120,6 +120,17 @@ namespace MKWiseM
             await Task.Run(() => ExecuteNonQuery(query, rawData, true));
         }
 
+        /// <summary>
+        /// DataReader가 CLOSE될때 Connection도 같이 CLOSE (CommandBehavior.CloseConnection)
+        /// </summary>
+        public static async Task<SqlDataReader> GetDataReaderAsync(string query)
+        {
+            var connection = new SqlConnection(AppConfigUtil.ConnectionStrings);
+            connection.Open();
+            var cmd = new SqlCommand(query, connection);
+
+            return await cmd.ExecuteReaderAsync(CommandBehavior.CloseConnection | CommandBehavior.SequentialAccess);
+        }
         
         private static void ExecuteNonQuery(string query, byte[] rawData = null, bool invokePrint = false)
         {
