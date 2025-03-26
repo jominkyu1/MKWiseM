@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -42,7 +43,12 @@ namespace MKWiseM
             }
         }
 
-        private static DataTable ExecuteScanDensity(string tables, bool handlePrintEvent = false)
+        private static DataSet CallProcedure(
+            string procedureName, 
+            SqlParameter[] inputParams,
+            SqlParameter[] outputParams,
+            bool handlePrintEvent = false
+            )
         {
             using (var sqlConnection = new SqlConnection(AppConfigUtil.ConnectionStrings))
             {
@@ -57,35 +63,44 @@ namespace MKWiseM
                     };
                 }
 
-                using (var cmd = new SqlCommand("dbo.GetScanDensity", sqlConnection))
+                using (var cmd = new SqlCommand(procedureName, sqlConnection))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandTimeout = 0;
-                    // IN VALUE
-                    cmd.Parameters.AddWithValue("@TableNames", tables);
 
-                    // OUT VALUE
-                    var outParam = new SqlParameter
+                    //INPUT
+                    if (inputParams != null)
                     {
-                        Direction = ParameterDirection.Output,
-                        SqlDbType = SqlDbType.NVarChar,
-                        Size = 500,
-                        ParameterName = "@ReturnMessage"
-                    };
-                    cmd.Parameters.Add(outParam);
+                        foreach (SqlParameter inputParam in inputParams)
+                        {
+                            inputParam.Direction = ParameterDirection.Input;
+                            cmd.Parameters.Add(inputParam);
+                        }
+                    }
 
+                    //OUTPUT
+                    if (outputParams != null)
+                    {
+                        foreach (SqlParameter outputParam in outputParams)
+                        {
+                            outputParam.Direction = ParameterDirection.Output;
+                            cmd.Parameters.Add(outputParam);
+                        }
+                    }
+
+                    
                     //Execute
                     try
                     {
                         sqlConnection.Open();
-                        var dt = new DataTable();
-                        using (var reader = cmd.ExecuteReader())
+                        var ds = new DataSet();
+
+                        using (var da = new SqlDataAdapter(cmd))
                         {
-                            dt.Load(reader);
+                            da.Fill(ds);
                         }
 
-                        InvokeMessage("ReIdx 작업 완료", outParam.Value.ToString());
-                        return dt;
+                        return ds;
                     }
                     catch (SqlException ex)
                     {
@@ -236,11 +251,11 @@ namespace MKWiseM
         /// <summary>
         /// .NET Framework 3.5 ++ 
         /// </summary>
-        public static void ExeGetScanDensityTask(List<String> tables, Action<DataTable> onCompleted)
+        public static void CallExecuteReindex(List<String> tables, Action<DataTable> onCompleted)
         {
             if (tables.Count == 0)
             {
-                InvokeMessage("NO TABLES TO RE-IDX");
+                InvokeMessage(nameof(CallExecuteReindex) +": NO TABLES");
                 return;
             }
 
@@ -249,11 +264,57 @@ namespace MKWiseM
             {
                 try
                 {
-                    var dt = ExecuteScanDensity(csvTables, true);
-                    onCompleted?.Invoke(dt);
+                    var inputParam = new SqlParameter("@TableNames", SqlDbType.NVarChar)
+                    {
+                        Value = csvTables
+                    };
+
+                    var outputParam = new SqlParameter("@ReturnMessage", SqlDbType.NVarChar, -1)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+
+                    var ds = CallProcedure("dbo.ExecuteReIndex",
+                        inputParams: new[] { inputParam },
+                        outputParams: new[] { outputParam },
+                        handlePrintEvent: true);
+
+                    onCompleted?.Invoke(ds.Tables[0]);
+                    InvokeMessage("ReIndex 완료", outputParam.Value?.ToString());
                 }
                 catch (Exception ex)
                 {
+                    onCompleted?.Invoke(null);
+                    InvokeMessage(ex.Message, ex.Message);
+                }
+            });
+        }
+
+        public static void CallGetScanDensity(List<String> tables, Action<DataTable> onCompleted)
+        {
+            if (tables.Count == 0)
+            {
+                InvokeMessage(nameof(CallGetScanDensity) + ": NO TABLES");
+                return;
+            }
+
+            var csvTables = string.Join(",", tables);
+            Task.Run(() =>
+            {
+                try
+                {
+                    var inputParam = new SqlParameter("@TableNames", SqlDbType.NVarChar)
+                    {
+                        Value = csvTables
+                    };
+
+                    DataSet ds = CallProcedure("dbo.GetScanDensity", new[] { inputParam }, null, true);
+                    onCompleted?.Invoke(ds.Tables[0]);
+                    InvokeMessage("Table Loaded.");
+                }
+                catch (Exception ex)
+                {
+                    onCompleted?.Invoke(null);
                     InvokeMessage(ex.Message, ex.Message);
                 }
             });
@@ -270,14 +331,15 @@ namespace MKWiseM
         /// <summary>
         /// .NET Framework 3.5 ++ 
         /// </summary>
-        public static void InstallProcdureTask(Action<String> onCompleted)
+        public static void InstallProcdureTask(Action onCompleted)
         {
             Task.Run(() =>
             {
                 try
                 {
-                    ExecuteNonQuery(StoredProcedure.GetScanDensity(),null, true);
-                    onCompleted?.Invoke(string.Empty);
+                    ExecuteNonQuery(StoredProcedureInstaller.ExecuteReIndex(),null, true);
+                    ExecuteNonQuery(StoredProcedureInstaller.GetScanDensity(),null, true);
+                    onCompleted?.Invoke();
                 }
                 catch (Exception ex)
                 {

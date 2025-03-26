@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -42,6 +43,14 @@ namespace MKWiseM
 
             GetConnectionStrings();
             LoadSettings();
+
+
+            //DataGridView DoubleBuffer
+            typeof(DataGridView).InvokeMember("DoubleBuffered",
+                BindingFlags.NonPublic |
+                BindingFlags.Instance |
+                BindingFlags.SetProperty, null, dGridReIdx,
+                new object[] { true });
         }
 
         private void LoadSettings()
@@ -335,6 +344,19 @@ namespace MKWiseM
             string configPath = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath;
             MessageBox.Show($"Copied to clipboard.\n\n{configPath}");
             Clipboard.SetText(configPath);
+        }
+
+        private void btnInstallProcedure_Click(object sender, EventArgs e)
+        {
+            DBUtil.InstallProcdureTask(() => 
+            {
+                MessageBox.Show("Procedure Installed.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            });
+        }
+
+        private void mainProperty_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+        {
+            
         }
     }
 }

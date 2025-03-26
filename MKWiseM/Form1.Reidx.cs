@@ -63,6 +63,53 @@ namespace MKWiseM
             }
         }
 
+
+        private void btnTableInformation_Click(object sender, EventArgs e)
+        {
+            if (!isConnected)
+            {
+                MessageBox.Show("DB Not Connected");
+                return;
+            }
+
+            var items = chkListTables.CheckedItems;
+            if (items.Count == 0)
+            {
+                MessageBox.Show("Table Not Selected");
+                return;
+            }
+
+            HashSet<String> targetList = new HashSet<String>();
+            foreach (DataRowView item in items)
+            {
+                targetList.Add(item["TableName"].ToString());
+            }
+
+            btnTableInformation.Enabled = false;
+
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            //프로시저 호출
+            DBUtil.CallGetScanDensity(targetList.ToList(),
+                onCompleted: ds =>
+                {
+                    dGridReIdx?.Invoke(new Action(() =>
+                    {
+                        if (ds != null)
+                        {
+                            dGridReIdx.DataSource = ds;
+                            dGridReIdx.Columns[1].DefaultCellStyle.Format = "N0";
+                        }
+                    }));
+                    stopwatch.Stop();
+
+                    var eTime = stopwatch.ElapsedMilliseconds;
+                    lblElapsedTime?.Invoke(new Action(() => lblElapsedTime.Text = $"{eTime} ms"));
+                    btnTableInformation?.Invoke(new Action(() => btnTableInformation.Enabled = true));
+                });
+        }
+
         private void btnReIdx_Click(object sender, EventArgs e)
         {
             if (!isConnected)
@@ -85,30 +132,30 @@ namespace MKWiseM
             }
 
             btnReIdx.Enabled = false;
-            //1. 프로시저 등록
-            DBUtil.InstallProcdureTask(
-                onCompleted: str =>
+
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            //프로시저 호출
+            DBUtil.CallExecuteReindex(targetList.ToList(),
+                onCompleted: ds =>
                 {
-                    var stopwatch = new Stopwatch();
-                    stopwatch.Start();
-                    //2. 프로시저 호출
-                    DBUtil.ExeGetScanDensityTask(targetList.ToList(),
-                        onCompleted: dt =>
+                    dGridReIdx?.Invoke(new Action(() =>
+                    {
+                        if (ds != null)
                         {
-                            dGridReIdx?.Invoke(new Action(() =>
-                            {
-                                dGridReIdx.DataSource = dt;
-                                dGridReIdx.Columns[1].DefaultCellStyle.Format = "N0";
-                            }));
-                            stopwatch.Stop();
+                            dGridReIdx.DataSource = ds;
+                            dGridReIdx.Columns[1].DefaultCellStyle.Format = "N0";
+                        }
+                    }));
+                    stopwatch.Stop();
 
-                            var eTime = stopwatch.ElapsedMilliseconds;
-                            lblElapsedTime?.Invoke(new Action(() => lblElapsedTime.Text = $"{eTime} ms"));
-                            btnReIdx?.Invoke(new Action(() => btnReIdx.Enabled = true));
-                        });
+                    var eTime = stopwatch.ElapsedMilliseconds;
+                    lblElapsedTime?.Invoke(new Action(() => lblElapsedTime.Text = $"{eTime} ms"));
+                    btnReIdx?.Invoke(new Action(() => btnReIdx.Enabled = true));
                 });
-
         }
+
 
         private async void btnClearLog_Click(object sender, EventArgs e)
         {
