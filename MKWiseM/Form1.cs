@@ -39,18 +39,14 @@ namespace MKWiseM
         {
             AppConfigUtil.MessageDeploy += Event_UpdateMessage;
             DBUtil.MessageDeploy += Event_UpdateMessage;
+            OleDbUtil.MessageDeploy += Event_UpdateMessage;
             FileUtil.FileProgressChanged += (o, val) => this.progressFile.Value = val;
 
             GetConnectionStrings();
             LoadSettings();
 
-
-            //DataGridView DoubleBuffer
-            typeof(DataGridView).InvokeMember("DoubleBuffered",
-                BindingFlags.NonPublic |
-                BindingFlags.Instance |
-                BindingFlags.SetProperty, null, dGridReIdx,
-                new object[] { true });
+            SetDoubleBufferDataGridView(dGridReIdx);
+            SetDoubleBufferDataGridView(dGridFromExcel);
         }
 
         private void LoadSettings()
@@ -354,9 +350,25 @@ namespace MKWiseM
             });
         }
 
+        private void SetDoubleBufferDataGridView(DataGridView dataGridView)
+        {
+            typeof(DataGridView).InvokeMember("DoubleBuffered",
+                BindingFlags.NonPublic |
+                BindingFlags.Instance |
+                BindingFlags.SetProperty, null, dataGridView,
+                new object[] { true });
+        }
+
         private void mainProperty_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
         {
             
         }
+
+        private void dGridFromExcel_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            txtTargetColumn.Text = dGridFromExcel.Columns[e.ColumnIndex].Name;
+        }
+
+        
     }
 }

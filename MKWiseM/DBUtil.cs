@@ -215,8 +215,7 @@ namespace MKWiseM
                     using (var cmd = new SqlCommand(query, sqlConnection))
                     using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(true))
                     {
-                        //TODO dt 할당 비동기
-                        dt.Load(reader);
+                        await Task.Run(() => dt.Load(reader));
                     }
                 }
             }
