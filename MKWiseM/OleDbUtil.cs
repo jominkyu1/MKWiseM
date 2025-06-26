@@ -34,7 +34,8 @@ namespace MKWiseM
                         connectionString = $"Provider={OleAceProvider};Data Source={filepath};Extended Properties='Excel 12.0;HDR=Yes;IMEX=1;'";
                         break;
                     default:
-                        InvokeMessage("Invalid file extension", "Invalid file extension");
+                        string filename = Path.GetFileName(filepath);
+                        InvokeMessage($"Invalid file extension: {filename}", $"Invalid file extension: {filename}");
                         return dt;
                 }
 
