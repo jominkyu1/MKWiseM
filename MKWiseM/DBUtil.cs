@@ -227,9 +227,6 @@ namespace MKWiseM
             return dt;
         }
 
-        /// <summary>
-        /// .NET Framework 3.5 ++ 
-        /// </summary>
         public static void GetDataTableTask(string query, Action<DataTable> onCompleted)
         {
             Task.Run(() =>
@@ -238,7 +235,6 @@ namespace MKWiseM
                 {
                     var dt = GetDataTable(query);
                     onCompleted?.Invoke(dt);
-                    //onCompleted(dt); // 문제 없음.. 그러나 문제발생 가능성 ( NULL + 크로스 스레드 예외 등 )
                 }
                 catch (Exception ex)
                 {
@@ -247,9 +243,6 @@ namespace MKWiseM
             });
         }
 
-        /// <summary>
-        /// .NET Framework 3.5 ++ 
-        /// </summary>
         public static void CallExecuteReindex(List<String> tables, Action<DataTable> onCompleted)
         {
             if (tables.Count == 0)
@@ -327,9 +320,6 @@ namespace MKWiseM
             return list;
         }
 
-        /// <summary>
-        /// .NET Framework 3.5 ++ 
-        /// </summary>
         public static void InstallProcdureTask(Action onCompleted)
         {
             Task.Run(() =>
@@ -347,9 +337,6 @@ namespace MKWiseM
             });
         }
 
-        /// <summary>
-        /// .NET Framework 3.5 ++ 
-        /// </summary>
         public static Task ClearLogTask()
         {
             return Task.Run(() =>

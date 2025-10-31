@@ -179,7 +179,6 @@ namespace MKWiseM
 
             var query = LongQuery.TableExistsQuery(reidxList.ToList());
 
-            // .NET framework 4.0 ++
             var table = await DBUtil.GetDataTableAsync(query);
             if (table.Rows.Count == 0) return;
 

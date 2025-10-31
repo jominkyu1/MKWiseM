@@ -9,18 +9,49 @@ namespace MKWiseM
     public partial class Form1
     {
         private byte[] rawData = null;
+        private bool _subscribed = false;
 
         private void tabUpload_Enter(object sender, EventArgs e)
         {
             if (IsDbInitialized())
             {
-                LoadProgramTables();
+                if(cbUploadTable.DataSource == null)
+                    LoadProgramTables();
                 EnableComps();
+
+                if (!_subscribed)
+                {
+                    this.dataCatalogChanged += (_ , catalog) =>
+                    {
+                        ClearComps();
+                        //LoadProgramTables();
+                    };
+                    _subscribed = true;
+                }
             }
             else
             {
                 DisableComps();
             }
+        }
+
+        private void ClearComps()
+        {
+            this.cbBunch.DataSource = null;
+            this.cbUploadTable.DataSource = null;
+            this.dGridCurrentProgram.DataSource = null;
+            this.rawData = null;
+
+            this.lblSelectedBunch.Text = string.Empty;
+            this.lblSelectedFileSize.Text = string.Empty;
+            this.lblSelectedFileName.Text = string.Empty;
+            this.lblFileSize.Text = string.Empty;
+            this.lblFileName.Text = string.Empty;
+            this.txtTransFilename.Clear();
+            this.lblFileVersion.Text = string.Empty;
+            this.lblBunch.Text = string.Empty;
+
+            this.progressFile.Value = 0;
         }
 
         private void EnableComps()
@@ -184,7 +215,7 @@ namespace MKWiseM
 
         private void LoadProgramBunch()
         {
-            if (!string.IsNullOrEmpty(cbUploadTable?.SelectedValue.ToString()))
+            if (!string.IsNullOrEmpty(cbUploadTable.SelectedValue?.ToString()))
             {
                 string bunchQuery = $"SELECT bunch FROM {cbUploadTable.SelectedValue} Group by bunch";
 
@@ -197,22 +228,21 @@ namespace MKWiseM
                         }));
                     });
             }
-            else
-            {
-                MessageBox.Show("TABLE NOT SELECTED");
-            }
+            // else
+            // {
+            //     MessageBox.Show("TABLE NOT SELECTED");
+            // }
         }
 
         private void LoadProgramTables()
         {
-
             const string tableQuery = 
                 "SELECT DISTINCT TABLE_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME like '%Upload%'";
 
             DBUtil.GetDataTableTask(tableQuery, 
                 onCompleted: dt =>
                 {
-                    cbUploadTable?.Invoke(new Action(() =>
+                    cbUploadTable.Invoke(new Action(() =>
                     {
                         cbUploadTable.DataSource = DBUtil.TableToList(dt);
                         if (cbUploadTable.Items.Count == 0) DisableComps();
@@ -222,7 +252,7 @@ namespace MKWiseM
 
         private DataRowView GetLatestView(DataTable dt)
         {
-            var dView = new DataView(dt);
+            var dView = dt.DefaultView;
             dView.Sort = "version desc";
 
             return dView[0];
@@ -255,6 +285,8 @@ namespace MKWiseM
             {
                 //ex ) app-debug.apk, program.exe ...
                 var serverFilename = lblFileName.Text;
+                if (string.IsNullOrEmpty(serverFilename)) return;
+
                 //ex ) exe, apk ...
                 var fileExt = serverFilename.Substring(serverFilename.LastIndexOf('.') + 1);
                 var askResult = MessageBox.Show($"Download?\nFilename: {serverFilename}",

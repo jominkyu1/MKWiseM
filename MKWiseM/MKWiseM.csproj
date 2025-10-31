@@ -57,6 +57,9 @@
     <Compile Include="DTO\IpGroup.cs" />
     <Compile Include="EncryptUtil.cs" />
     <Compile Include="FileUtil.cs" />
+    <Compile Include="Form1.CachedTable.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -68,10 +71,6 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Form1.Information.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.ManualDelete.cs">
       <DependentUpon>Form1.cs</DependentUpon>
       <SubType>Form</SubType>
     </Compile>

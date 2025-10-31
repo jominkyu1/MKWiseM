@@ -25,7 +25,7 @@ namespace MKWiseM
             {
                 string extension = Path.GetExtension(filepath);
                 string connectionString = "";
-                switch (extension)
+                switch (extension.ToLower())
                 {
                     case ".xls":
                         connectionString = $"Provider={OleJetProvider};Data Source={filepath};Extended Properties='Excel 8.0;HDR=Yes;IMEX=1;'";
@@ -55,14 +55,13 @@ namespace MKWiseM
                     OleDbDataAdapter adapter = new OleDbDataAdapter(query, oleDbConnection);
                     await Task.Run(() => adapter.Fill(dt));
                 }
-
-                return dt;
             }
             catch (Exception ex)
             {
                 InvokeMessage(ex.Message, ex.Message);
-                return dt;
             }
+
+            return dt;
         }
 
 

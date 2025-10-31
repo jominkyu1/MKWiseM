@@ -185,7 +185,9 @@ namespace MKWiseM
                                     BEGIN
                                         RAISERROR('[ %s ] ::: RE-INDEXING', 0, 1, @CurrentTableName) WITH NOWAIT;
                                         SET @StartTime = getDate();
-                                        SET @SQL = 'ALTER INDEX ALL ON ' + @CurrentTableName + ' REORGANIZE';
+                                        SET @SQL = 'ALTER INDEX ALL ON ' + @CurrentTableName + ' REORGANIZE; ';
+                                        SET @SQL = @SQL + 'UPDATE STATISTICS [' + @CurrentTableName + ']; ';
+
                                         EXEC SP_executesql @SQL;
                                         SET @EndTime = getDate();
 

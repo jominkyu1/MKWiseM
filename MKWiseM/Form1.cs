@@ -17,12 +17,13 @@ namespace MKWiseM
 {
     public partial class Form1 : Form
     {
-        //TODO IP/ID/PW Combobox List
-
         private bool isConnected = false;
+
         // Re-Idx TableList
         private readonly HashSet<string> reidxList = AppConfigUtil.LoadTables();
         private CancellationTokenSource _cToken;
+
+        public event EventHandler<String> dataCatalogChanged;
 
         public Form1()
         {
@@ -46,7 +47,7 @@ namespace MKWiseM
             LoadSettings();
 
             SetDoubleBufferDataGridView(dGridReIdx);
-            SetDoubleBufferDataGridView(dGridFromExcel);
+            SetDoubleBufferDataGridView(dGridCachedTable);
         }
 
         private void LoadSettings()
@@ -188,8 +189,8 @@ namespace MKWiseM
             AppConfigUtil.SetupConnection(
                 txtIP.Text.Trim(),
                 txtID.Text.Trim(),
-                txtPW.Text.Trim(),
-                AppConfigUtil.Catalog
+                txtPW.Text.Trim()
+                //, AppConfigUtil.Catalog
             );
 
             TryOpenConnection();
@@ -296,16 +297,18 @@ namespace MKWiseM
         private void cbDbList_SelectionChangeCommitted(object sender, EventArgs e)
         {
             if (cbDbList.SelectedIndex == -1 || string.IsNullOrEmpty(cbDbList.SelectedValue.ToString())) return;
+            string catalog = cbDbList.SelectedValue.ToString();
 
             AppConfigUtil.SetupConnection(
                 txtIP.Text.Trim(),
                 txtID.Text.Trim(),
                 txtPW.Text.Trim(),
-                cbDbList.SelectedValue.ToString()
+                catalog
             );
 
-            lblCatalog.Text = cbDbList.SelectedValue.ToString();
+            lblCatalog.Text = catalog;
             btnLoadList_Click(sender, EventArgs.Empty);
+            dataCatalogChanged?.Invoke(this, catalog);
         }
 
         private void lblSelectedFileName_DoubleClick(object sender, EventArgs e)
@@ -359,14 +362,11 @@ namespace MKWiseM
                 new object[] { true });
         }
 
-        private void mainProperty_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
-            
-        }
-
-        private void dGridFromExcel_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            txtTargetColumn.Text = dGridFromExcel.Columns[e.ColumnIndex].Name;
+            tsPbar.Visible = true;
+            await Task.Delay(3000);
+            tsPbar.Visible = false;
         }
 
         

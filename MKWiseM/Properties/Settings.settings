@@ -11,5 +11,8 @@
   &lt;string&gt;127.0.0.1;sa;&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
+    <Setting Name="formBgColor" Type="System.Drawing.Color" Scope="Application">
+      <Value Profile="(Default)">ControlLight</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

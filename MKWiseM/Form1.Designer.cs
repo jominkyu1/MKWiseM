@@ -35,38 +35,21 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabMain = new System.Windows.Forms.TabPage();
             this.btnInstallProcedure = new System.Windows.Forms.Button();
             this.btnConfigPath = new System.Windows.Forms.Button();
-            this.mainProperty = new System.Windows.Forms.PropertyGrid();
-            this.dGridFindColumn = new System.Windows.Forms.DataGridView();
-            this.tabManualOut = new System.Windows.Forms.TabPage();
-            this.label27 = new System.Windows.Forms.Label();
-            this.txtTargetColumn = new System.Windows.Forms.TextBox();
-            this.btnManualOutSave = new System.Windows.Forms.Button();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.lblStockTotalQty = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
-            this.lblErpReqQty = new System.Windows.Forms.Label();
-            this.lblTargetRawMaterial = new System.Windows.Forms.Label();
-            this.lblblbl = new System.Windows.Forms.Label();
-            this.lblStockCountCheck = new System.Windows.Forms.Label();
-            this.lblRmStockHistCount = new System.Windows.Forms.Label();
-            this.lblRmStockCount = new System.Windows.Forms.Label();
-            this.lblExcelRowsCount = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.lblErpCheckResult = new System.Windows.Forms.Label();
-            this.btnErpCheck = new System.Windows.Forms.Button();
-            this.label22 = new System.Windows.Forms.Label();
-            this.txtErpCheck = new System.Windows.Forms.TextBox();
-            this.dGridFromExcel = new System.Windows.Forms.DataGridView();
-            this.btnLoadExcel = new System.Windows.Forms.Button();
+            this.tabCachedT = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnCachedTableLoad = new System.Windows.Forms.Button();
+            this.dGridCachedTable = new System.Windows.Forms.DataGridView();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.chkCachedOnly = new System.Windows.Forms.CheckBox();
             this.tabReIdx = new System.Windows.Forms.TabPage();
             this.btnTableInformation = new System.Windows.Forms.Button();
             this.dGridDiskInfo = new System.Windows.Forms.DataGridView();
@@ -121,6 +104,7 @@
             this.lblFinding = new System.Windows.Forms.Label();
             this.lblFindColumnRows = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
+            this.dGridFindColumn = new System.Windows.Forms.DataGridView();
             this.btnFindColumn = new System.Windows.Forms.Button();
             this.label20 = new System.Windows.Forms.Label();
             this.txtFindColumn = new System.Windows.Forms.TextBox();
@@ -149,13 +133,14 @@
             this.lblConStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblCatalog = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblMessage = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsPbar = new System.Windows.Forms.ToolStripProgressBar();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.tabControl1.SuspendLayout();
             this.tabMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dGridFindColumn)).BeginInit();
-            this.tabManualOut.SuspendLayout();
-            this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dGridFromExcel)).BeginInit();
+            this.tabCachedT.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dGridCachedTable)).BeginInit();
+            this.groupBox4.SuspendLayout();
             this.tabReIdx.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGridDiskInfo)).BeginInit();
             this.panel1.SuspendLayout();
@@ -167,6 +152,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dGridCurrentProgram)).BeginInit();
             this.panel2.SuspendLayout();
             this.tabInformation.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dGridFindColumn)).BeginInit();
             this.tabSettings.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -175,7 +161,7 @@
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabMain);
-            this.tabControl1.Controls.Add(this.tabManualOut);
+            this.tabControl1.Controls.Add(this.tabCachedT);
             this.tabControl1.Controls.Add(this.tabReIdx);
             this.tabControl1.Controls.Add(this.tabUpload);
             this.tabControl1.Controls.Add(this.tabInformation);
@@ -195,7 +181,6 @@
             this.tabMain.BackColor = System.Drawing.SystemColors.ControlLight;
             this.tabMain.Controls.Add(this.btnInstallProcedure);
             this.tabMain.Controls.Add(this.btnConfigPath);
-            this.tabMain.Controls.Add(this.mainProperty);
             this.tabMain.Location = new System.Drawing.Point(4, 39);
             this.tabMain.Name = "tabMain";
             this.tabMain.Padding = new System.Windows.Forms.Padding(3);
@@ -205,7 +190,7 @@
             // 
             // btnInstallProcedure
             // 
-            this.btnInstallProcedure.Location = new System.Drawing.Point(632, 56);
+            this.btnInstallProcedure.Location = new System.Drawing.Point(891, 6);
             this.btnInstallProcedure.Name = "btnInstallProcedure";
             this.btnInstallProcedure.Size = new System.Drawing.Size(153, 50);
             this.btnInstallProcedure.TabIndex = 2;
@@ -215,334 +200,127 @@
             // 
             // btnConfigPath
             // 
-            this.btnConfigPath.Location = new System.Drawing.Point(632, 6);
+            this.btnConfigPath.Location = new System.Drawing.Point(726, 6);
             this.btnConfigPath.Name = "btnConfigPath";
-            this.btnConfigPath.Size = new System.Drawing.Size(153, 44);
+            this.btnConfigPath.Size = new System.Drawing.Size(159, 50);
             this.btnConfigPath.TabIndex = 1;
             this.btnConfigPath.Text = "Config Path";
             this.btnConfigPath.UseVisualStyleBackColor = true;
             this.btnConfigPath.Click += new System.EventHandler(this.btnConfigPath_Click);
             // 
-            // mainProperty
+            // tabCachedT
             // 
-            this.mainProperty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.mainProperty.Location = new System.Drawing.Point(791, 0);
-            this.mainProperty.Name = "mainProperty";
-            this.mainProperty.SelectedObject = this.dGridFindColumn;
-            this.mainProperty.Size = new System.Drawing.Size(263, 401);
-            this.mainProperty.TabIndex = 0;
-            this.mainProperty.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.mainProperty_PropertyValueChanged);
+            this.tabCachedT.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.tabCachedT.Controls.Add(this.tableLayoutPanel1);
+            this.tabCachedT.Location = new System.Drawing.Point(4, 39);
+            this.tabCachedT.Name = "tabCachedT";
+            this.tabCachedT.Padding = new System.Windows.Forms.Padding(3);
+            this.tabCachedT.Size = new System.Drawing.Size(1052, 431);
+            this.tabCachedT.TabIndex = 5;
+            this.tabCachedT.Text = "Cached Table";
+            this.tabCachedT.Enter += new System.EventHandler(this.tabCachedT_Enter);
             // 
-            // dGridFindColumn
+            // tableLayoutPanel1
             // 
-            this.dGridFindColumn.AllowUserToAddRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Menu;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dGridFindColumn.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.dGridFindColumn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.dGridFindColumn.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dGridFindColumn.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SunkenHorizontal;
-            this.dGridFindColumn.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
-            this.dGridFindColumn.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.btnCachedTableLoad, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.dGridCachedTable, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.groupBox4, 1, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1046, 399);
+            this.tableLayoutPanel1.TabIndex = 5;
+            // 
+            // btnCachedTableLoad
+            // 
+            this.btnCachedTableLoad.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnCachedTableLoad.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnCachedTableLoad.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnCachedTableLoad.Location = new System.Drawing.Point(3, 3);
+            this.btnCachedTableLoad.Name = "btnCachedTableLoad";
+            this.btnCachedTableLoad.Size = new System.Drawing.Size(517, 54);
+            this.btnCachedTableLoad.TabIndex = 3;
+            this.btnCachedTableLoad.Text = "Load";
+            this.btnCachedTableLoad.UseVisualStyleBackColor = false;
+            this.btnCachedTableLoad.Click += new System.EventHandler(this.btnCachedTableLoad_Click);
+            // 
+            // dGridCachedTable
+            // 
+            this.dGridCachedTable.AllowUserToAddRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dGridCachedTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dGridCachedTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dGridCachedTable.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dGridCachedTable.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Info;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Info;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dGridFindColumn.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dGridFindColumn.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dGridCachedTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dGridCachedTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.tableLayoutPanel1.SetColumnSpan(this.dGridCachedTable, 2);
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Menu;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle3.NullValue = "-";
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dGridFindColumn.DefaultCellStyle = dataGridViewCellStyle3;
-            this.dGridFindColumn.Location = new System.Drawing.Point(11, 191);
-            this.dGridFindColumn.Name = "dGridFindColumn";
-            this.dGridFindColumn.ReadOnly = true;
-            this.dGridFindColumn.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.dGridFindColumn.RowTemplate.Height = 23;
-            this.dGridFindColumn.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dGridFindColumn.Size = new System.Drawing.Size(1033, 193);
-            this.dGridFindColumn.TabIndex = 8;
-            this.dGridFindColumn.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dGridFindColumn_DataBindingComplete);
+            this.dGridCachedTable.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dGridCachedTable.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dGridCachedTable.EnableHeadersVisualStyles = false;
+            this.dGridCachedTable.GridColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dGridCachedTable.Location = new System.Drawing.Point(3, 63);
+            this.dGridCachedTable.Name = "dGridCachedTable";
+            this.dGridCachedTable.ReadOnly = true;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dGridCachedTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.dGridCachedTable.RowHeadersVisible = false;
+            this.dGridCachedTable.RowTemplate.Height = 23;
+            this.dGridCachedTable.Size = new System.Drawing.Size(1040, 333);
+            this.dGridCachedTable.TabIndex = 4;
             // 
-            // tabManualOut
+            // groupBox4
             // 
-            this.tabManualOut.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.tabManualOut.Controls.Add(this.label27);
-            this.tabManualOut.Controls.Add(this.txtTargetColumn);
-            this.tabManualOut.Controls.Add(this.btnManualOutSave);
-            this.tabManualOut.Controls.Add(this.panel3);
-            this.tabManualOut.Controls.Add(this.dGridFromExcel);
-            this.tabManualOut.Controls.Add(this.btnLoadExcel);
-            this.tabManualOut.Location = new System.Drawing.Point(4, 39);
-            this.tabManualOut.Name = "tabManualOut";
-            this.tabManualOut.Padding = new System.Windows.Forms.Padding(3);
-            this.tabManualOut.Size = new System.Drawing.Size(1052, 431);
-            this.tabManualOut.TabIndex = 5;
-            this.tabManualOut.Text = "Manual Out";
+            this.groupBox4.Controls.Add(this.chkCachedOnly);
+            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox4.Location = new System.Drawing.Point(526, 3);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(20, 3, 20, 3);
+            this.groupBox4.Size = new System.Drawing.Size(517, 54);
+            this.groupBox4.TabIndex = 4;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Filter";
             // 
-            // label27
+            // chkCachedOnly
             // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(665, 119);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(87, 15);
-            this.label27.TabIndex = 7;
-            this.label27.Text = "Target Column";
-            // 
-            // txtTargetColumn
-            // 
-            this.txtTargetColumn.Location = new System.Drawing.Point(758, 116);
-            this.txtTargetColumn.Name = "txtTargetColumn";
-            this.txtTargetColumn.Size = new System.Drawing.Size(115, 23);
-            this.txtTargetColumn.TabIndex = 6;
-            this.txtTargetColumn.Text = "Rm_Barcode";
-            this.txtTargetColumn.TextChanged += new System.EventHandler(this.txtTargetColumn_TextChanged);
-            // 
-            // btnManualOutSave
-            // 
-            this.btnManualOutSave.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnManualOutSave.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnManualOutSave.Location = new System.Drawing.Point(656, 341);
-            this.btnManualOutSave.Name = "btnManualOutSave";
-            this.btnManualOutSave.Size = new System.Drawing.Size(388, 61);
-            this.btnManualOutSave.TabIndex = 5;
-            this.btnManualOutSave.Text = "SAVE";
-            this.btnManualOutSave.UseVisualStyleBackColor = false;
-            this.btnManualOutSave.Click += new System.EventHandler(this.btnManualOutSave_Click);
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.lblStockTotalQty);
-            this.panel3.Controls.Add(this.label29);
-            this.panel3.Controls.Add(this.label28);
-            this.panel3.Controls.Add(this.lblErpReqQty);
-            this.panel3.Controls.Add(this.lblTargetRawMaterial);
-            this.panel3.Controls.Add(this.lblblbl);
-            this.panel3.Controls.Add(this.lblStockCountCheck);
-            this.panel3.Controls.Add(this.lblRmStockHistCount);
-            this.panel3.Controls.Add(this.lblRmStockCount);
-            this.panel3.Controls.Add(this.lblExcelRowsCount);
-            this.panel3.Controls.Add(this.label26);
-            this.panel3.Controls.Add(this.label25);
-            this.panel3.Controls.Add(this.label24);
-            this.panel3.Controls.Add(this.label23);
-            this.panel3.Controls.Add(this.lblErpCheckResult);
-            this.panel3.Controls.Add(this.btnErpCheck);
-            this.panel3.Controls.Add(this.label22);
-            this.panel3.Controls.Add(this.txtErpCheck);
-            this.panel3.Location = new System.Drawing.Point(653, 140);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(391, 195);
-            this.panel3.TabIndex = 3;
-            // 
-            // lblStockTotalQty
-            // 
-            this.lblStockTotalQty.AutoSize = true;
-            this.lblStockTotalQty.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lblStockTotalQty.Location = new System.Drawing.Point(75, 138);
-            this.lblStockTotalQty.Name = "lblStockTotalQty";
-            this.lblStockTotalQty.Size = new System.Drawing.Size(15, 20);
-            this.lblStockTotalQty.TabIndex = 19;
-            this.lblStockTotalQty.Text = "-";
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(12, 143);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(57, 15);
-            this.label29.TabIndex = 18;
-            this.label29.Text = "Excel Qty";
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(176, 143);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(50, 15);
-            this.label28.TabIndex = 17;
-            this.label28.Text = "ERP Qty";
-            // 
-            // lblErpReqQty
-            // 
-            this.lblErpReqQty.AutoSize = true;
-            this.lblErpReqQty.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lblErpReqQty.Location = new System.Drawing.Point(232, 138);
-            this.lblErpReqQty.Name = "lblErpReqQty";
-            this.lblErpReqQty.Size = new System.Drawing.Size(15, 20);
-            this.lblErpReqQty.TabIndex = 16;
-            this.lblErpReqQty.Text = "-";
-            // 
-            // lblTargetRawMaterial
-            // 
-            this.lblTargetRawMaterial.AutoSize = true;
-            this.lblTargetRawMaterial.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lblTargetRawMaterial.ForeColor = System.Drawing.Color.Green;
-            this.lblTargetRawMaterial.Location = new System.Drawing.Point(176, 64);
-            this.lblTargetRawMaterial.Name = "lblTargetRawMaterial";
-            this.lblTargetRawMaterial.Size = new System.Drawing.Size(12, 15);
-            this.lblTargetRawMaterial.TabIndex = 15;
-            this.lblTargetRawMaterial.Text = "-";
-            // 
-            // lblblbl
-            // 
-            this.lblblbl.AutoSize = true;
-            this.lblblbl.Location = new System.Drawing.Point(12, 64);
-            this.lblblbl.Name = "lblblbl";
-            this.lblblbl.Size = new System.Drawing.Size(76, 15);
-            this.lblblbl.TabIndex = 14;
-            this.lblblbl.Text = "Raw Material";
-            // 
-            // lblStockCountCheck
-            // 
-            this.lblStockCountCheck.AutoSize = true;
-            this.lblStockCountCheck.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lblStockCountCheck.Location = new System.Drawing.Point(304, 110);
-            this.lblStockCountCheck.Name = "lblStockCountCheck";
-            this.lblStockCountCheck.Size = new System.Drawing.Size(32, 20);
-            this.lblStockCountCheck.TabIndex = 13;
-            this.lblStockCountCheck.Text = "NG";
-            // 
-            // lblRmStockHistCount
-            // 
-            this.lblRmStockHistCount.AutoSize = true;
-            this.lblRmStockHistCount.Location = new System.Drawing.Point(176, 114);
-            this.lblRmStockHistCount.Name = "lblRmStockHistCount";
-            this.lblRmStockHistCount.Size = new System.Drawing.Size(12, 15);
-            this.lblRmStockHistCount.TabIndex = 12;
-            this.lblRmStockHistCount.Text = "-";
-            // 
-            // lblRmStockCount
-            // 
-            this.lblRmStockCount.AutoSize = true;
-            this.lblRmStockCount.Location = new System.Drawing.Point(176, 89);
-            this.lblRmStockCount.Name = "lblRmStockCount";
-            this.lblRmStockCount.Size = new System.Drawing.Size(12, 15);
-            this.lblRmStockCount.TabIndex = 11;
-            this.lblRmStockCount.Text = "-";
-            // 
-            // lblExcelRowsCount
-            // 
-            this.lblExcelRowsCount.AutoSize = true;
-            this.lblExcelRowsCount.Location = new System.Drawing.Point(176, 40);
-            this.lblExcelRowsCount.Name = "lblExcelRowsCount";
-            this.lblExcelRowsCount.Size = new System.Drawing.Size(12, 15);
-            this.lblExcelRowsCount.TabIndex = 10;
-            this.lblExcelRowsCount.Text = "-";
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(12, 40);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(103, 15);
-            this.label26.TabIndex = 9;
-            this.label26.Text = "Excel Rows Count";
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(12, 114);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(140, 15);
-            this.label25.TabIndex = 8;
-            this.label25.Text = "Rm_StockHist \'IN\' Count";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(12, 89);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(97, 15);
-            this.label24.TabIndex = 7;
-            this.label24.Text = "Rm_Stock Count";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Font = new System.Drawing.Font("맑은 고딕", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label23.Location = new System.Drawing.Point(12, 12);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(123, 17);
-            this.label23.TabIndex = 6;
-            this.label23.Text = "VALIDATE RESULT";
-            // 
-            // lblErpCheckResult
-            // 
-            this.lblErpCheckResult.AutoSize = true;
-            this.lblErpCheckResult.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lblErpCheckResult.Location = new System.Drawing.Point(304, 164);
-            this.lblErpCheckResult.Name = "lblErpCheckResult";
-            this.lblErpCheckResult.Size = new System.Drawing.Size(32, 20);
-            this.lblErpCheckResult.TabIndex = 5;
-            this.lblErpCheckResult.Text = "NG";
-            // 
-            // btnErpCheck
-            // 
-            this.btnErpCheck.BackColor = System.Drawing.Color.Beige;
-            this.btnErpCheck.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnErpCheck.Location = new System.Drawing.Point(214, 162);
-            this.btnErpCheck.Name = "btnErpCheck";
-            this.btnErpCheck.Size = new System.Drawing.Size(80, 25);
-            this.btnErpCheck.TabIndex = 4;
-            this.btnErpCheck.Text = "Check";
-            this.btnErpCheck.UseVisualStyleBackColor = false;
-            this.btnErpCheck.Click += new System.EventHandler(this.btnErpCheck_Click);
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(12, 169);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(55, 15);
-            this.label22.TabIndex = 3;
-            this.label22.Text = "지시번호";
-            // 
-            // txtErpCheck
-            // 
-            this.txtErpCheck.Location = new System.Drawing.Point(73, 164);
-            this.txtErpCheck.Name = "txtErpCheck";
-            this.txtErpCheck.Size = new System.Drawing.Size(127, 23);
-            this.txtErpCheck.TabIndex = 2;
-            this.txtErpCheck.TextChanged += new System.EventHandler(this.txtErpCheck_TextChanged);
-            // 
-            // dGridFromExcel
-            // 
-            this.dGridFromExcel.AllowUserToAddRows = false;
-            this.dGridFromExcel.AllowUserToDeleteRows = false;
-            this.dGridFromExcel.AllowUserToResizeRows = false;
-            this.dGridFromExcel.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dGridFromExcel.Location = new System.Drawing.Point(6, 6);
-            this.dGridFromExcel.Name = "dGridFromExcel";
-            this.dGridFromExcel.ReadOnly = true;
-            this.dGridFromExcel.RowHeadersVisible = false;
-            this.dGridFromExcel.RowTemplate.Height = 23;
-            this.dGridFromExcel.Size = new System.Drawing.Size(641, 396);
-            this.dGridFromExcel.TabIndex = 1;
-            this.dGridFromExcel.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGridFromExcel_CellDoubleClick);
-            // 
-            // btnLoadExcel
-            // 
-            this.btnLoadExcel.Location = new System.Drawing.Point(653, 6);
-            this.btnLoadExcel.Name = "btnLoadExcel";
-            this.btnLoadExcel.Size = new System.Drawing.Size(391, 61);
-            this.btnLoadExcel.TabIndex = 0;
-            this.btnLoadExcel.Text = "Load EXCEL";
-            this.btnLoadExcel.UseVisualStyleBackColor = true;
-            this.btnLoadExcel.Click += new System.EventHandler(this.btnLoadExcel_Click);
+            this.chkCachedOnly.AutoSize = true;
+            this.chkCachedOnly.BackColor = System.Drawing.Color.Transparent;
+            this.chkCachedOnly.Dock = System.Windows.Forms.DockStyle.Left;
+            this.chkCachedOnly.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.chkCachedOnly.Location = new System.Drawing.Point(20, 19);
+            this.chkCachedOnly.Name = "chkCachedOnly";
+            this.chkCachedOnly.Size = new System.Drawing.Size(117, 32);
+            this.chkCachedOnly.TabIndex = 0;
+            this.chkCachedOnly.Text = "Cached Only";
+            this.chkCachedOnly.UseVisualStyleBackColor = false;
+            this.chkCachedOnly.CheckedChanged += new System.EventHandler(this.chkCachedOnly_CheckedChanged);
             // 
             // tabReIdx
             // 
@@ -726,42 +504,42 @@
             // dGridReIdx
             // 
             this.dGridReIdx.AllowUserToAddRows = false;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.dGridReIdx.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dGridReIdx.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dGridReIdx.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dGridReIdx.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dGridReIdx.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Info;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dGridReIdx.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
-            this.dGridReIdx.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             dataGridViewCellStyle6.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.NullValue = "-";
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dGridReIdx.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Info;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dGridReIdx.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.dGridReIdx.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle7.NullValue = "-";
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dGridReIdx.DefaultCellStyle = dataGridViewCellStyle7;
             this.dGridReIdx.EnableHeadersVisualStyles = false;
             this.dGridReIdx.GridColor = System.Drawing.SystemColors.ActiveCaption;
             this.dGridReIdx.Location = new System.Drawing.Point(3, 7);
             this.dGridReIdx.Name = "dGridReIdx";
             this.dGridReIdx.ReadOnly = true;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dGridReIdx.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dGridReIdx.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.dGridReIdx.RowHeadersVisible = false;
             this.dGridReIdx.RowTemplate.Height = 23;
             this.dGridReIdx.Size = new System.Drawing.Size(676, 256);
@@ -829,7 +607,7 @@
             this.groupBox3.Size = new System.Drawing.Size(449, 207);
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Selected File ";
+            this.groupBox3.Text = "Uploaded File";
             // 
             // lblSelectedBunch
             // 
@@ -923,7 +701,7 @@
             this.groupBox2.Size = new System.Drawing.Size(238, 207);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Server Latest Version";
+            this.groupBox2.Text = "Selected Row";
             // 
             // btnFileDownload
             // 
@@ -1168,6 +946,50 @@
             this.label21.Size = new System.Drawing.Size(35, 15);
             this.label21.TabIndex = 9;
             this.label21.Text = "Rows";
+            // 
+            // dGridFindColumn
+            // 
+            this.dGridFindColumn.AllowUserToAddRows = false;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Menu;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dGridFindColumn.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle9;
+            this.dGridFindColumn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.dGridFindColumn.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dGridFindColumn.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SunkenHorizontal;
+            this.dGridFindColumn.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
+            this.dGridFindColumn.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Info;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dGridFindColumn.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            this.dGridFindColumn.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Menu;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle11.NullValue = "-";
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dGridFindColumn.DefaultCellStyle = dataGridViewCellStyle11;
+            this.dGridFindColumn.Location = new System.Drawing.Point(11, 191);
+            this.dGridFindColumn.Name = "dGridFindColumn";
+            this.dGridFindColumn.ReadOnly = true;
+            this.dGridFindColumn.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dGridFindColumn.RowTemplate.Height = 23;
+            this.dGridFindColumn.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dGridFindColumn.Size = new System.Drawing.Size(1033, 193);
+            this.dGridFindColumn.TabIndex = 8;
+            this.dGridFindColumn.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dGridFindColumn_DataBindingComplete);
             // 
             // btnFindColumn
             // 
@@ -1414,7 +1236,8 @@
             this.toolStripStatusLabel1,
             this.lblConStatus,
             this.lblCatalog,
-            this.lblMessage});
+            this.lblMessage,
+            this.tsPbar});
             this.statusStrip1.Location = new System.Drawing.Point(0, 444);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1060, 30);
@@ -1461,6 +1284,15 @@
             this.lblMessage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lblMessage.TextChanged += new System.EventHandler(this.lblMessage_TextChanged);
             // 
+            // tsPbar
+            // 
+            this.tsPbar.AutoSize = false;
+            this.tsPbar.MarqueeAnimationSpeed = 10;
+            this.tsPbar.Name = "tsPbar";
+            this.tsPbar.Size = new System.Drawing.Size(150, 24);
+            this.tsPbar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.tsPbar.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1480,12 +1312,11 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabMain.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dGridFindColumn)).EndInit();
-            this.tabManualOut.ResumeLayout(false);
-            this.tabManualOut.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dGridFromExcel)).EndInit();
+            this.tabCachedT.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dGridCachedTable)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.tabReIdx.ResumeLayout(false);
             this.tabReIdx.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGridDiskInfo)).EndInit();
@@ -1503,6 +1334,7 @@
             this.panel2.PerformLayout();
             this.tabInformation.ResumeLayout(false);
             this.tabInformation.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dGridFindColumn)).EndInit();
             this.tabSettings.ResumeLayout(false);
             this.tabSettings.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -1600,35 +1432,16 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label lblFinding;
         private System.Windows.Forms.Button btnFileDownload;
-        private System.Windows.Forms.PropertyGrid mainProperty;
         private System.Windows.Forms.Button btnConfigPath;
         private System.Windows.Forms.Button btnTableInformation;
         private System.Windows.Forms.Button btnInstallProcedure;
-        private System.Windows.Forms.TabPage tabManualOut;
-        private System.Windows.Forms.Button btnLoadExcel;
-        private System.Windows.Forms.DataGridView dGridFromExcel;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.TextBox txtErpCheck;
-        private System.Windows.Forms.Button btnErpCheck;
-        private System.Windows.Forms.Label lblErpCheckResult;
-        private System.Windows.Forms.Button btnManualOutSave;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.Label lblRmStockHistCount;
-        private System.Windows.Forms.Label lblRmStockCount;
-        private System.Windows.Forms.Label lblExcelRowsCount;
-        private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.TextBox txtTargetColumn;
-        private System.Windows.Forms.Label lblStockCountCheck;
-        private System.Windows.Forms.Label lblblbl;
-        private System.Windows.Forms.Label lblTargetRawMaterial;
-        private System.Windows.Forms.Label lblErpReqQty;
-        private System.Windows.Forms.Label label28;
-        private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.Label lblStockTotalQty;
+        private System.Windows.Forms.TabPage tabCachedT;
+        private System.Windows.Forms.Button btnCachedTableLoad;
+        private System.Windows.Forms.DataGridView dGridCachedTable;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.ToolStripProgressBar tsPbar;
+        private System.Windows.Forms.CheckBox chkCachedOnly;
     }
 }
 

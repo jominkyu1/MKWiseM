@@ -103,5 +103,52 @@ namespace MKWiseM
                 LastAccess DESC
             ";
         }
+
+        public static string LoadCachedTableQuery()
+        {
+            return $@"
+            SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+
+            WITH Buffered AS ( --
+                               SELECT
+                                 COUNT( * )              AS CachedPageCount
+                               , COUNT( * ) * 8.0 / 1024 AS CachedMB
+                               , p.object_id
+                               FROM sys.dm_os_buffer_descriptors AS bd
+                               INNER JOIN sys.allocation_units   AS au ON bd.allocation_unit_id = au.allocation_unit_id
+                               INNER JOIN sys.partitions         AS p ON au.container_id = p.hobt_id
+                               WHERE bd.database_id = DB_ID( )    -- 현재 데이터베이스만
+                                 AND bd.page_type = 'DATA_PAGE'   -- 데이터 페이지만 (인덱스/LOB 포함 시 생략)
+                                 AND au.type_desc = 'IN_ROW_DATA' -- 인-로우 데이터
+                                 AND OBJECTPROPERTY( p.object_id, 'IsUserTable' ) = 1
+                               GROUP BY
+                                 bd.database_id
+                               , p.object_id
+                             )
+               , Partition AS (
+                               SELECT
+                                 ps.object_id
+                               , SUM( ps.reserved_page_count )              AS [TotalPageCount]
+                               , SUM( ps.reserved_page_count ) * 8.0 / 1024 AS [TotalMB]
+                               FROM sys.dm_db_partition_stats AS ps
+                               GROUP BY
+                                 ps.object_id
+                             )
+            SELECT
+              OBJECT_SCHEMA_NAME( p.object_id, DB_ID( ) )             AS SchemaName
+            , OBJECT_NAME( p.object_id, DB_ID( ) )                    AS TableName
+            , CONVERT( DECIMAL(10, 2), p.TotalMB )                    AS TotalMB
+            , CONVERT( DECIMAL(10, 2), b.CachedMB )                   AS CachedMB
+            , CONVERT( DECIMAL(10, 2), b.CachedMB / p.TotalMB * 100 ) AS MB_Percent
+            , CONVERT( DECIMAL(10, 2), p.TotalPageCount )             AS TotalPage
+            , CONVERT( DECIMAL(10, 2), b.CachedPageCount )            AS CachedPage
+            FROM Partition     p
+            LEFT JOIN Buffered b ON p.object_id = b.object_id
+            WHERE OBJECT_SCHEMA_NAME( p.object_id, DB_ID( ) ) <> 'sys'
+            ORDER BY
+              CachedMB DESC
+            , TotalMB  DESC             
+            ";
+        }
     }
 }
