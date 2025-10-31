@@ -63,7 +63,7 @@ namespace MKWiseM
                 if (Settings.Default.chkAutoConnect) TryOpenConnection();
                 
                 lblConStatus.Text = AppConfigUtil.IP;
-                lblCatalog.Text = AppConfigUtil.Catalog;
+                //lblCatalog.Text = AppConfigUtil.Catalog;
 
             }
             catch (ConfigurationErrorsException) { }
